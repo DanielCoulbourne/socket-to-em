@@ -8,7 +8,10 @@ npm install
 
 #Usage
 
-`node index.js [--socket "XXX"] [--hook "XXX"] [--events "XXX,YYY"] [--slack "XXX"]
+```
+node index.js [--socket "XXX"] [--hook "XXX"] [--events "XXX,YYY"] [--slack "XXX"]
+```
+
 This script accepts 4 arguments.
 
 ### --socket (required)
