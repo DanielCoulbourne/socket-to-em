@@ -3,11 +3,15 @@ var needle = require('needle')
 var argv = require('yargs').argv;
 
 if ( !argv.socket ) {
-	console.log('Provide a websocket with --socket=XXXXXXXX');
+	console.log('Provide a websocket with --socket XXXXXXXX');
 }
 
 if ( !argv.hook ) {
-	console.log('Provide you application endpoint with --socket=XXXXXXXX');
+	console.log('Provide you application endpoint with --hook XXXXXXXX');
+}
+
+if ( !argv.events ) {
+	console.log('Provide a list of socket events with --events xxx,yyy,zzz');
 }
 
 
@@ -37,21 +41,14 @@ var respond = function( eventJSON ){
 	}
 }
 
+if ( argv.events ) {
+	var events = argv.events.split(",");
+}
 
-socket.on('location:updated', function(eventJSON) {
-	respond(eventJSON);
-});
-
-socket.on('ignition:on', function(eventJSON) {
-	respond(eventJSON);
-});
-
-socket.on('ignition:off', function(eventJSON) {
-	respond(eventJSON);
-});
-
-socket.on('trip:finished', function(eventJSON) {
-	respond(eventJSON);
+argv.events.split(",").forEach(function(event) {
+	socket.on(event, function(eventJSON) {
+		respond(eventJSON);
+	});
 });
 
 socket.on('error', function(eventJSON) {
