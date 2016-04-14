@@ -30,7 +30,7 @@ var postToApplication = function(postURL, payload) {
 	body = JSON.stringify(payload, null, 4);
 	needle.post(postURL, body, 
 	    function(err, resp, body){
-	        console.log(body);
+	        postToSlack(body);
 		}
 	);
 }
